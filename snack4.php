@@ -5,7 +5,7 @@
 <?php
 
 require __DIR__  . '/classes.php';
-
+$max_vote = isset($_GET['user_vote']) ? $_GET['user_vote'] : null ;
 ?>
 
 <!DOCTYPE html>
@@ -23,22 +23,35 @@ require __DIR__  . '/classes.php';
         LA MIA SCUOLA!!
     </h1>
     <div class="container">
+        <form action="" method="GET">
+            <label class="form-label" for="vote">Inserisci un voto di ricerca!!</label>
+            <input type="number" class="form-control" name="user_vote" step="0.1" value="<?= $max_vote?>">
+            <button class="btn btn-primary" type="submit">CERCA</button>
+        </form>
         
-            <?php 
+             <?php 
                 foreach($classi as $name_class => $each_student) { ?>
                 <h3>
                     <?=  $name_class ?>
                 </h3>
-          <ul>  
-            <?php    foreach($each_student as $key => $value)  {
-                    if($value["voto_medio"] >= 6 ) { ?>
-                <li>
-                 <?= $value["nome"] . ' ' .  $value["cognome"] ?> Età: <?= $value["anni"] ?> Voto Medio <?= $value["voto_medio"] ?> <?= $value["linguaggio_preferito"] ?>
-                 </li>
-        <?php  } ?>
-        <?php } ?>  
-        </ul>
-       
-        <?php } ?>
+            <?php    foreach($each_student as $key => $value)
+                    //* SNACK 4B COMMENTATO
+                    // if($value["voto_medio"] >= 6 ) { 
+                    // echo "<li>{$value['nome']} {$value['cognome']} Età: {$value['anni']}  Voto medio: {$value['voto_medio']} Linguaggio preferito: {$value['linguaggio_preferito']}</li>";
+                    if($max_vote === null || $value["voto_medio"] < $max_vote) { ?>
+                    <div class="card" style="width: 18rem;">
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"> <?= $value["nome"] . ' ' . $value['cognome'] ?></h5>
+                      <p class="card-text"><?= $value["anni"] ?></p>
+                      <p class="card-text"><?= $value["voto_medio"] ?></p>
+                      <p class="card-text"><?= $value["linguaggio_preferito"] ?></p>
+                    </div>
+                </div>
+         <?php } ?>  
+         <?php } ?>
+        
+    </div>
+         
 </body>
 </html>
