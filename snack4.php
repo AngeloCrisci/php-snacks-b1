@@ -6,6 +6,7 @@
 
 require __DIR__  . '/classes.php';
 $max_vote = isset($_GET['user_vote']) ? $_GET['user_vote'] : null ;
+$filtered_student = isset($_GET['filter']) ? $_GET['filter'] : null;
 ?>
 
 <!DOCTYPE html>
@@ -27,17 +28,18 @@ $max_vote = isset($_GET['user_vote']) ? $_GET['user_vote'] : null ;
             <div>
                 <label class="form-label" for="vote">Inserisci un voto di ricerca!!</label>
                 <input type="number" class="form-control mb-3" name="user_vote" step="0.1" value="<?= $max_vote?>">
-                <div class="mb-4">
+            </div>
+            <select class="form-select mb-4" name="filter">
+                <option selected>SCEGLI IL TUO LINGUAGGIO PREFERITO</option>
+                <option value="<?= $filtered_student?>">JS</option>
+                <option value="<?= $filtered_student?>">PHP</option>
+                <option value="<?= $filtered_student?>">HTML</option>
+                <option value="<?= $filtered_student?>">CSS</option>
+            </select>
+            <div class="mb-4">
                     <button class="btn btn-primary" type="submit">CERCA</button>
                     <button class="btn btn-warning" type="reset">CLEAR</button>
-                </div>
             </div>
-            <select class="form-select" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
         </form>
         
              <?php 
@@ -45,12 +47,15 @@ $max_vote = isset($_GET['user_vote']) ? $_GET['user_vote'] : null ;
                 <h3>
                     <?=  $name_class ?>
                 </h3>
+                
+
                 <div class="row justify-content-between">
             <?php    foreach($each_student as $key => $value)
                     //* SNACK 4B COMMENTATO
                     // if($value["voto_medio"] >= 6 ) { 
-                    // echo "<li>{$value['nome']} {$value['cognome']} Età: {$value['anni']}  Voto medio: {$value['voto_medio']} Linguaggio preferito: {$value['linguaggio_preferito']}</li>";
-                    if($max_vote === null || $value["voto_medio"] < $max_vote) { ?>
+                    // echo "<li>{$value['nome']} {$value['cognome']} Età: {$value['anni']}  Voto medio: {$value['voto_medio']} Linguaggio preferito: {$value['linguaggio_preferito']}</li>"
+
+                    if($max_vote === null || $value["voto_medio"] < $max_vote && $filtered_student === $value['linguaggio_preferito'] || $filtered_student === null) { ?>
                     <div class="col-5" >
                         <div class="card mb-4" style="width: 18rem;">
                             <img src="..." class="card-img-top" alt="...">
