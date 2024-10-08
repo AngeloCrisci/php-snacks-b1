@@ -31,10 +31,10 @@ $filtered_student = isset($_GET['filter']) ? $_GET['filter'] : null;
             </div>
             <select class="form-select mb-4" name="filter">
                 <option selected>SCEGLI IL TUO LINGUAGGIO PREFERITO</option>
-                <option value="<?= $filtered_student?>">JS</option>
-                <option value="<?= $filtered_student?>">PHP</option>
-                <option value="<?= $filtered_student?>">HTML</option>
-                <option value="<?= $filtered_student?>">CSS</option>
+                <option value="JS">JS</option>
+                <option value="PHP">PHP</option>
+                <option value="HTML">HTML</option>
+                <option value="CSS">CSS</option>
             </select>
             <div class="mb-4">
                     <button class="btn btn-primary" type="submit">CERCA</button>
@@ -55,7 +55,7 @@ $filtered_student = isset($_GET['filter']) ? $_GET['filter'] : null;
                     // if($value["voto_medio"] >= 6 ) { 
                     // echo "<li>{$value['nome']} {$value['cognome']} Età: {$value['anni']}  Voto medio: {$value['voto_medio']} Linguaggio preferito: {$value['linguaggio_preferito']}</li>"
 
-                    if($max_vote === null || $value["voto_medio"] < $max_vote && $filtered_student === $value['linguaggio_preferito'] || $filtered_student === null) { ?>
+                    if($max_vote === null || $value["voto_medio"] < $max_vote || $filtered_student === $value['linguaggio_preferito'] || $filtered_student === null) { ?>
                     <div class="col-5" >
                         <div class="card mb-4" style="width: 18rem;">
                             <img src="..." class="card-img-top" alt="...">
